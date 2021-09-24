@@ -7,34 +7,32 @@ class Controller:
         self.Walker = Player(0)
     
     def play_game(self):
-        self.world.fill_world()
+        self.world.make_world()
         while True:
             print("You are currently in room " + self.world.rooms[self.Walker.room].name + " Where do you wish to move.")
             for room in self.world.rooms[self.Walker.room].connections:
                 print("Room " + room)
             while True:
-                userInput = input("input: Room ")
+                user_input = input("input: Room ")
                 i = 0
-                foundRoom = False
+                found_room = False
                 for room in self.world.rooms: 
-                    if userInput == room.name:
+                    if user_input == room.name:
                         for room in self.world.rooms[self.Walker.room].connections:
-                            if  userInput == room:
+                            if  user_input == room:
                                 self.Walker.room = i
                                 print("")
                                 print("You entered room " + room + ".\n")
-                                foundRoom = True
+                                found_room = True
                     i += 1
-                if foundRoom == False:
+                if found_room == False:
                     print("Input is not valid")
                 else:
-                    if  self.world.rooms[self.Walker.room].finalRoom == True:
-                        print("You find ")
-                        
-                        self.world.rooms[0].addConnection()
-                    else:
-                        self.world.rooms[self.Walker.room].describeRoom()
-                        break
+                    self.world.rooms[self.Walker.room].search_room()
+                    
+                    if self.world.rooms[self.Walker.room].final_room == True:
+                        self.world.rooms[0].add_connection(self.world.rooms[self.Walker.room].unlock_connection)
+                    break
 
 game = Controller()
 game.play_game()
