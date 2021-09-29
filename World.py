@@ -1,3 +1,4 @@
+import json
 from Room import *
 
 class World:
@@ -5,23 +6,27 @@ class World:
         self.rooms = rooms
 
     def first_room(self):
-        self.rooms.append(Room("0", ["1"], [0], False, False))
+        for room in self.rooms:
+            if room.first_room == True:
+                return room        
     
-    def add_room(self, name, connections, item, contains_enemy, final_room, unlock_connection):
-        self.rooms.append(Room(name, connections, item, contains_enemy, final_room, unlock_connection))
+    def add_room(self, name, connections, item, contains_enemy, first_room, boss_room, unlock_connection):
+        self.rooms.append(Room(name, connections, item, contains_enemy, first_room, boss_room, unlock_connection))
 
     def room_amount(self):
         print(len(self.rooms))
     
     def make_world(self):
-        self.add_room("0", ["1"], "", False, False, "")
-        self.add_room("1", ["0", "2", "3"], "", False, False, "")
-        self.add_room("2", ["1", "5"], "", False, False, "")
-        self.add_room("3", ["1", "4"], "", False, False, "")
-        self.add_room("4", ["3", "6"], "", False, False, "")
-        self.add_room("5", ["2", "6"], "", False, False, "")
-        self.add_room("6", ["5","4","7"], "", False, False, "")
-        self.add_room("7", ["6"], "", False, True, "8")
+        with open("World1.json", "r") as f:
+            world = json.load(f)
+        for dict in world:
+            room = list(dict.values())
+            self.add_room(room[0], room[1], room[2], room[3], room[4], room[5], room[6])
+        
+        #for room1 in self.rooms:
+        #    for connection in room1.connections:
+        #        for room in self.rooms:
+        #            if connection == room.name:
+        #                connection = room
 
-        self.add_room("8", ["0"], "", False, False, "")
 

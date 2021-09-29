@@ -1,0 +1,92 @@
+[
+    {
+        "name":"0",
+        "connections":["1"],
+        "items":"",
+        "contains_enemy":false,
+        "first_room":true,
+        "boss_room":false,
+        "unlock_connection":[]
+    },
+    {
+        "name":"1",
+        "connections":["0", "2", "3"],
+        "items":"",
+        "contains_enemy":false,
+        "first_room":false,
+        "boss_room":false,
+        "unlock_connection":[]
+    },
+    {
+        "name":"2",
+        "connections":["1", "4"],
+        "items":"",
+        "contains_enemy":false,
+        "first_room":false,
+        "boss_room":false,
+        "unlock_connection":[]
+    },
+    {
+        "name":"3",
+        "connections":["1", "5"],
+        "items":"",
+        "contains_enemy":false,
+        "first_room":false,
+        "boss_room":false,
+        "unlock_connection":[]
+    },
+    {
+        "name":"4",
+        "connections":["2", "6"],
+        "items":"",
+        "contains_enemy":false,
+        "first_room":false,
+        "boss_room":false,
+        "unlock_connection":[]
+    },
+    {
+        "name":"5",
+        "connections":["3", "6"],
+        "items":"",
+        "contains_enemy":false,
+        "first_room":false,
+        "boss_room":false,
+        "unlock_connection":[]
+    },
+    {
+        "name":"6",
+        "connections":["4", "5", "7"],
+        "items":"",
+        "contains_enemy":false,
+        "first_room":false,
+        "boss_room":false,
+        "unlock_connection":[]
+    },
+    {
+        "name":"7",
+        "connections":["6"],
+        "items":"",
+        "contains_enemy":false,
+        "first_room":false,
+        "boss_room":false,
+        "unlock_connection":["8", "0"]
+    },
+    {
+        "name":"8",
+        "connections":["9"],
+        "items":"",
+        "contains_enemy":false,
+        "first_room":false,
+        "boss_room":false,
+        "unlock_connection":[]
+    },
+    {
+        "name":"9",
+        "connections":["8"],
+        "items":"",
+        "contains_enemy":false,
+        "first_room":false,
+        "boss_room":false,
+        "unlock_connection":[]
+    }
+]

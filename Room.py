@@ -1,15 +1,16 @@
 class Room:
-    def __init__(self, name, connections, item, contains_enmeny, final_room, unlock_connection):
+    def __init__(self, name, connections, item, contains_enmeny, first_room, boss_room, unlock_connection):
         self.name = name
         self.connections = connections
         self.item = item
         self.contains_enmeny = contains_enmeny
-        self.final_room = final_room
+        self.first_room = first_room
+        self.boss_room = boss_room
         self.unclock_connection = unlock_connection
 
     def search_room(self):
         print("You enter the room and look around you.\n")
-        
+        #print(self.unclock_connection)
         if len(self.connections) - 1 == 0:
             print("there are no other entrances\n")
         elif len(self.connections) - 1 == 1:
@@ -17,7 +18,7 @@ class Room:
         else:
             print("there are " + str(len(self.connections) - 1) + " other entrances.\n")
 
-        if self.final_room == True:
+        if self.unclock_connection != []:
             print("You find a big lever at the back wall. You walk over to it and flip it")
             print("You hear a rumble coming from the entrance.\n")
         
