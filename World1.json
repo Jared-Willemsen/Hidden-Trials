@@ -1,7 +1,7 @@
 [
     {
         "name":"0",
-        "connections":["1"],
+        "connections":["1-1"],
         "items":"",
         "contains_enemy":false,
         "first_room":true,
@@ -9,8 +9,17 @@
         "unlock_connection":[]
     },
     {
-        "name":"1",
-        "connections":["0", "2", "3"],
+        "name":"1-1",
+        "connections":["0", "1-2", "1-3"],
+        "items":"",
+        "contains_enemy":true,
+        "first_room":false,
+        "boss_room":false,
+        "unlock_connection":[]
+    },
+    {
+        "name":"1-2",
+        "connections":["1-1", "1-4"],
         "items":"",
         "contains_enemy":false,
         "first_room":false,
@@ -18,8 +27,8 @@
         "unlock_connection":[]
     },
     {
-        "name":"2",
-        "connections":["1", "4"],
+        "name":"1-3",
+        "connections":["1-1", "1-5"],
         "items":"",
         "contains_enemy":false,
         "first_room":false,
@@ -27,8 +36,8 @@
         "unlock_connection":[]
     },
     {
-        "name":"3",
-        "connections":["1", "5"],
+        "name":"1-4",
+        "connections":["1-2", "1-6"],
         "items":"",
         "contains_enemy":false,
         "first_room":false,
@@ -36,8 +45,8 @@
         "unlock_connection":[]
     },
     {
-        "name":"4",
-        "connections":["2", "6"],
+        "name":"1-5",
+        "connections":["1-3", "1-6"],
         "items":"",
         "contains_enemy":false,
         "first_room":false,
@@ -45,8 +54,8 @@
         "unlock_connection":[]
     },
     {
-        "name":"5",
-        "connections":["3", "6"],
+        "name":"1-6",
+        "connections":["1-4", "1-5", "1-7"],
         "items":"",
         "contains_enemy":false,
         "first_room":false,
@@ -54,8 +63,17 @@
         "unlock_connection":[]
     },
     {
-        "name":"6",
-        "connections":["4", "5", "7"],
+        "name":"1-7",
+        "connections":["1-6"],
+        "items":"",
+        "contains_enemy":false,
+        "first_room":false,
+        "boss_room":false,
+        "unlock_connection":["2-1", "0"]
+    },
+    {
+        "name":"2-1",
+        "connections":["2-2"],
         "items":"",
         "contains_enemy":false,
         "first_room":false,
@@ -63,17 +81,8 @@
         "unlock_connection":[]
     },
     {
-        "name":"7",
-        "connections":["6"],
-        "items":"",
-        "contains_enemy":false,
-        "first_room":false,
-        "boss_room":false,
-        "unlock_connection":["8", "0"]
-    },
-    {
-        "name":"8",
-        "connections":["9"],
+        "name":"2-2",
+        "connections":["2-1", "2-3"],
         "items":"",
         "contains_enemy":false,
         "first_room":false,
@@ -81,12 +90,31 @@
         "unlock_connection":[]
     },
     {
-        "name":"9",
-        "connections":["8"],
+        "name":"2-3",
+        "connections":["2-2", "2-4", "2-5"],
+        "items":"",
+        "contains_enemy":false,
+        "first_room":false,
+        "boss_room":false,
+        "unlock_connection":[]
+    },
+    {
+        "name":"",
+        "connections":[""],
+        "items":"",
+        "contains_enemy":false,
+        "first_room":false,
+        "boss_room":false,
+        "unlock_connection":[]
+    },
+    {
+        "name":"12",
+        "connections":["9", "13"],
         "items":"",
         "contains_enemy":false,
         "first_room":false,
         "boss_room":false,
         "unlock_connection":[]
     }
+
 ]

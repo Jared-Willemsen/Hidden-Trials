@@ -1,0 +1,26 @@
+[
+    {
+        "name":"Wolve",
+        "max_health":10,
+        "attack_damage":10,
+        "defence":0.8,
+        "magic_defence":0.8,
+        "attack_sort":"Physical"
+    },
+    {
+        "name":"Goblin Mage",
+        "max_health":20,
+        "attack_damage":6,
+        "defence":0.75,
+        "magic_defence":0.5,
+        "attack_sort":"Magical"
+    },
+    {
+        "name":"Spear Goblin",
+        "max_health":20,
+        "attack_damage":6,
+        "defence":0.5,
+        "magic_defence":0.75,
+        "attack_sort":"Physical"
+    }  
+]

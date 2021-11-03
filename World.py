@@ -2,8 +2,8 @@ import json
 from Room import *
 
 class World:
-    def __init__(self, rooms):
-        self.rooms = rooms
+    def __init__(self, _rooms):
+        self.rooms = _rooms
 
     def first_room(self):
         for room in self.rooms:
@@ -17,16 +17,23 @@ class World:
         print(len(self.rooms))
     
     def make_world(self):
+        #read world from JSON file 
         with open("World1.json", "r") as f:
             world = json.load(f)
         for dict in world:
             room = list(dict.values())
             self.add_room(room[0], room[1], room[2], room[3], room[4], room[5], room[6])
         
-        #for room1 in self.rooms:
-        #    for connection in room1.connections:
-        #        for room in self.rooms:
-        #            if connection == room.name:
-        #                connection = room
+        #change connection and unluck_connection strings to pointers
+        for room in self.rooms:
+            for connection in range(len(room.connections)):
+                for i in range(len(self.rooms)):
+                    if self.rooms[i].name == room.connections[connection]:
+                        room.connections[connection] = i
+
+            for connection in range(len(room.unlock_connection)):
+                for i in range(len(self.rooms)):
+                    if self.rooms[i].name == room.unlock_connection[connection]:
+                        room.unlock_connection[connection] = i
 
 

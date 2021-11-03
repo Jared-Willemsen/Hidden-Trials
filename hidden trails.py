@@ -2,5 +2,9 @@ from World import *
 from Player import *
 from Controller import *
 
-game = Controller()
-game.play_game()
+def main():
+    game = Controller() 
+    game.play_game()
+
+if __name__ == "__main__":
+    main()
