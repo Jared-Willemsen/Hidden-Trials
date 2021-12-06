@@ -22,5 +22,13 @@
         "defence":0.5,
         "magic_defence":0.75,
         "attack_sort":"Physical"
-    }  
+    },
+    {
+        "name":"Bomb Sketleton",
+        "max_health":15,
+        "attack_damage":3,
+        "defence":0.9,
+        "magic_defence":0.9,
+        "attack_sort":"Physical"
+    }
 ]

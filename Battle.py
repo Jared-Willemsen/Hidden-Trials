@@ -3,31 +3,26 @@ from random import *
 from Player import *
 from Enemy import *
 
-def check_if_enemies_died(enemies, players):
-    for enemy in enemies:
-        if enemy.status == True:
-            return True
-    print_battle_status(enemies, players)            
-    print(f"All enemies died {players[0].name} and {players[1].name} won the battle.")
-    return False
+# def check_enemies_status(enemies, players):
+#     for enemy in enemies:
+#         if enemy.status == True:
+#             return True
+#     print_battle_status(enemies, players)            
+#     print(f"All enemies died {players[0].name} and {players[1].name} won the battle.")
+#     return False
 
-def get_target(enemies):
+def get_target(targets):
     while True:
         print("---------------------------------")
-        print("Pick an enemy you want to attack:")
-        for enemy in enemies:
-            if enemy.status == True:
-                print(f"{enemy.name}")
+        print("Pick a target:")
+        for target in targets:
+            print(f"{target.name}")
         print("---------------------------------")                        
-        target = input(f"input: {enemy.name[0:len(enemy.name ) - 1]}")
-        try:
-            if int(target) > 0 and int(target) < len(enemies) + 1 and enemies[int(target) - 1].status == True:
-                return enemies[int(target) - 1]
-            else:
-                print("GAME: That is not a valid input")
-        except ValueError:
-            print("GAME: That is not a valid input")
-
+        target_choice = input(f"input: ")
+        for target in targets:
+            if target_choice == target.name:
+                return target
+        print("invalid input")
 
 def print_battle_status(enemies, players):
     name_line = ""
@@ -67,88 +62,78 @@ def get_enemies():
         enemies.append(Enemy(enemy[0] + str(i + 1), enemy[1], enemy[2], enemy[3], enemy[4], enemy[5]))
     return enemies
 
-def start_battle(players):
+def start_battle(players, mover):
+    turn_conter = 0
     enemies = get_enemies() #load enemies
     battle = True
     #BEGIN BATTLE
     while battle:
+        turn_conter += 1
         #PLAYER TURN
         for player in players:
-            if battle == False:
-                break
+            print("hey")
             player.guarding = False
             print_battle_status(enemies, players)
             while True:
-                print(f"What will {player.name} do?")
-                print("(1)Attack")
-                print("(2)Craft") 
-                print("(3)Item")
-                action = input("input: ")
-                if action == "1": #basic attack
-                    target = get_target(enemies)
-                    damage = player.calculate_damage()
-                    target.receive_damage(damage, player.attack_sort)
-                    battle = check_if_enemies_died(enemies, players)
+                if (action := get_action(player)) in ("1", "2","3"):
                     break
-                elif action == "2": #special attack/craft
-                    craft = player.special_attack()
-                    if craft != False:
-                        if player.name == players[0].name:
-                            if craft == "1":
-                                for enemy in enemies:
-                                    damage = player.calculate_damage(0.8)
-                                    enemy.receive_damage(damage, player.attack_sort)
-                            elif craft == "2":
-                                target = get_target(enemies)
-                                damage = player.calculate_damage(2.0)
-                                target.receive_damage(damage, player.attack_sort)
-                            elif craft == "3":
-                                player.guarding = True    
-                            elif craft == "S":
-                                damage = player.calculate_damage(3.0)
-                                for enemy in enemies:
-                                    enemy.receive_damage(damage, player.attack_sort)
-                            else:
-                                print("I have no clue how you did this but I applaude you.")
-                        else:
-                            if craft == "1":
-                                for enemy in enemies:
-                                    damage = player.calculate_damage(0.8)
-                                    enemy.receive_damage(damage, player.attack_sort)
-                            elif craft == "2":
-                                target = get_target(enemies)
-                                damage = player.calculate_damage(2.0)
-                                target.receive_damage(damage, player.attack_sort)
-                            elif craft == "3":
-                                while True:
-                                    print("Who will you heal:")
-                                    print(players[0].name)
-                                    print(players[1].name)
-                                    heal_target = input("Input: ")
-                                    if heal_target == players[0].name:
-                                        players[0].health += 15
-                                        if players[0].health > players[0].max_health:
-                                            players[0].health = players[0].max_health
-                                        break
-                                    elif heal_target == players[1].name:
-                                        players[1].health += 15
-                                        if players[1].health > players[1].max_health:
-                                            players[1].health = players[1].max_health                                            
-                                        break
-                                    else:
-                                        print("that is not a valid input")    
-                            elif craft == "S":
-                                damage = player.calculate_damage(3.0)
-                                for enemy in enemies:
-                                    enemy.receive_damage(damage, player.attack_sort)
-                        battle = check_if_enemies_died(enemies, players)
-                        break
+            if action == "1": #basic attack
+                target = get_target(enemies)
+                damage = player.calculate_damage()
+                target.receive_damage(damage, player.attack_sort)
+            elif action == "2": #special attack/craft
+                craft = player.special_attack()
+                if craft != False:
+                    if player.name == players[0].name:
+                        if craft == "1":
+                            for enemy in enemies:
+                                damage = player.calculate_damage(0.8)
+                                enemy.receive_damage(damage, player.attack_sort)
+                        elif craft == "2":
+                            target = get_target(enemies)
+                            damage = player.calculate_damage(2.0)
+                            target.receive_damage(damage, player.attack_sort)
+                        elif craft == "3":
+                            player.guarding = True    
+                        elif craft == "S":
+                            damage = player.calculate_damage(3.0)
+                            for enemy in enemies:
+                                enemy.receive_damage(damage, player.attack_sort)
                     else:
-                        print_battle_status(enemies, players)
-                elif action == "3":
-                    pass
+                        if craft == "1":
+                            for enemy in enemies:
+                                damage = player.calculate_damage(0.8)
+                                enemy.receive_damage(damage, player.attack_sort)
+                        elif craft == "2":
+                            target = get_target(enemies)
+                            damage = player.calculate_damage(2.0)
+                            target.receive_damage(damage, player.attack_sort)
+                        elif craft == "3":
+                            target = get_target(players)
+                            target.increase_health(30)
+                        elif craft == "S":
+                            damage = player.calculate_damage(3.0)
+                            for enemy in enemies:
+                                enemy.receive_damage(damage, player.attack_sort)
                 else:
-                    print("GAME: That is not a valid input")
+                    print_battle_status(enemies, players)
+            elif action == "3":
+                if mover.check_for_usable_items("battle") == True:
+                    mover.use_item(players, "battle")
+                else:
+                    print("You have no usable items")
+            else:
+                print("GAME: That is not a valid input")
+            for enemy in enemies:
+                if enemy.status == False:
+                    enemies.remove(enemy)
+                    
+            if len(enemies) <= 0:
+                battle = False
+                break
+        if len(enemies) <= 0:
+            battle = False
+            break        
         
         #ENEMY TURN
         print_battle_status(enemies, players)
@@ -163,3 +148,16 @@ def start_battle(players):
                     print(f"{enemy.name} attacked {target.name}.")
                     damage = enemy.calculate_damage()
                 target.receive_damage(damage, enemy.attack_sort)                    
+
+def get_action(player):
+    print(f"What will {player.name} do?")
+    print("(1)Attack")
+    print("(2)Craft") 
+    print("(3)Item")
+    action = input("input: ")
+    return action
+
+def print_enemies(enemies, x):
+    for enemy in enemies:
+        print(enemy.name)
+        print(x)

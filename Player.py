@@ -1,19 +1,29 @@
-from Room import *
+from math import fabs
 from random import *
 
 class Player():
-    def __init__(self, _name, _attack_sort, _max_health, _attack_damage, _defence, _magic_defence, _guarding = False, _combat_power = 0, _max_combat_power = 99):
-        self.name = _name
-        self.attack_sort = _attack_sort
-        self.max_health = _max_health
-        self.health = _max_health
-        self.attack_damage = _attack_damage
-        self.defence = _defence
-        self.magic_defence = _magic_defence
-        self.guariding = _guarding
-        self.combat_power = _combat_power
-        self.max_combat_power = _max_combat_power
-    
+    def __init__(self, name, attack_sort, max_health, attack_damage, defence, magic_defence, guarding = False, combat_power = 99, max_combat_power = 99):
+        self.name = name
+        self.attack_sort = attack_sort
+        self.max_health = max_health
+        self.health = max_health
+        self.attack_damage = attack_damage
+        self.defence = defence
+        self.magic_defence = magic_defence
+        self.guariding = guarding
+        self.combat_power = combat_power
+        self.max_combat_power = max_combat_power
+
+    def increase_health(self, healing_points):
+        self.health += healing_points
+        if self.health > self.max_health:
+            self.health = self.max_health
+
+    def increase_combat_power(self, combat_points):
+        self.combat_power += combat_points
+        if self.combat_power > self.max_combat_power:
+            self.combat_power = self.max_combat_power
+
     def calculate_damage(self, multiplier = 1):
         standard_damage = self.attack_damage * multiplier         
         true_damage = round(standard_damage * (randrange(8, 12, 1) / 10)) 
@@ -48,16 +58,16 @@ class Player():
                 return False
             if self.name == "Joshua":
                 print("Crafts:")
-                print("(1)Blitz Assault     - attack all enemies at increadible speed: 20cp")
-                print("(2)Heavy Impact      - attack one enemy with an powerful strike: 30cp")
-                print("(3)Guard             - protect ally and reduce incoming damage: 10cp")
-                print("(S)Termination Slash - slash all enmies with extreme power and focus: 99cp")
+                print("(1)Blitz Assault     - attack all enemies at increadible speed       | 20cp")
+                print("(2)Heavy Impact      - attack one enemy with an powerful strike      | 30cp")
+                print("(3)Guard             - protect ally and reduce incoming damage       | 10cp")
+                print("(S)Termination Slash - slash all enmies with extreme power and focus | 99cp")
             else:
                 print("Crafts:")
-                print("(1)Crystal Volley - summon a wave of crystals shards to attack all enemies: 20cp")
-                print("(2)Stone Bullet   - create a sharp stone and launch it at an enemy with great speed: 30cp")
-                print("(3)Heal           - heal an ally: 10cp")
-                print("(S)Dark Matter    - summon a dark orb that puts imense pressure on all enemies: 99cp")
+                print("(1)Crystal Volley - summon a wave of crystals shards to attack all enemies          | 20cp")
+                print("(2)Stone Bullet   - create a sharp stone and launch it at an enemy with great speed | 30cp")
+                print("(3)Heal           - heal an ally for 15 health                                      | 10cp")
+                print("(S)Dark Matter    - summon a dark orb that puts imense pressure on all enemies      | 99cp")
             craft = input("Input(Q to cancel): ")
 
             if craft == "1" and self.combat_power < 20 or craft == "2" and self.combat_power < 30 or craft == "S" and self.combat_power < 99:
@@ -80,11 +90,90 @@ class Player():
                 else:
                     print("That is not a valid input")
 
-class mover():
-    def __init__(self, _current_room):
-        self.current_room = _current_room
+class Mover():
+    def __init__(self, current_room, items = []):
+        self.current_room = current_room
+        self.items = items
     
+    def pick_up_items(self, room):
+        for item in room.items:
+            self.items.append(item)
+        return []
+
+    def check_for_usable_items(self, location):
+        for item in self.items:
+            for setting in item.usable:
+                if setting == location:
+                    return True
+        return False
+
+    def print_items(self, location):
+        print("Backpack: ")
+        if location == "battle":
+            for item in self.items:
+                for setting in item.usable:
+                    if setting == "battle":
+                        print(f"{item.name} - {item.description}")
+        else:           
+            for item in self.items:
+                for setting in item.usable:
+                    if setting == "world":
+                        print(f"{item.name} - {item.description}")
+ 
     def goto_room(self, room):
-        #change player room and describe it
+        #change player room
         self.current_room = room
+
+    def use_item(self, players, location):
+        while True:
+            self.print_items(location)
+            if(item := get_item_input(self, location)) != False:
+                break
+            print("Invalid input")
+        if item.name == "lesser healing potion" or item.name  == "greater healing potion" or item.name  == "lesser combat potion" or item.name  == "greater combat potion":
+            while True:
+                if(player := get_player_input(players)) != False:
+                    break
+                print("input is invalid")
+            if item.name  == "lesser healing potion":
+                player.increase_health(15)
+
+            elif item.name  == "greater healing potion":
+                player.increase_health(25)
+
+            elif item.name  == "lesser combat potion":
+                player.increase_combat_power(40)
+                
+            else:
+                player.increase_combat_power(80)
+            self.items.remove(item)
+        #self.remove_item(item)
+            print("test")
     
+    # def remove_item(self, item):
+    #     for player_item in self.items:
+    #         if player_item.name == item:
+                
+
+        # elif item.name == "flash stone":
+        
+def get_player_input(players):
+    print("Who do you want to use this item on")
+    for player in players:
+        print(f"{player.name} - {player.health}/{player.max_health}HP - {player.combat_power}/{player.max_combat_power}CP")
+    target = input("input: ")
+
+    for player in players:
+        if player.name == target:
+            return player
+    return False
+
+def get_item_input(self, location):
+    print("Which item do you want to use?")
+    item = input("input: ")
+
+    for player_item in self.items:
+        for setting in player_item.usable:
+            if player_item.name == item and setting == location:
+                return player_item
+    return False

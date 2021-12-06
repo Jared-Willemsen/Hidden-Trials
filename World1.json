@@ -2,7 +2,7 @@
     {
         "name":"0",
         "connections":["1-1"],
-        "items":"",
+        "items":[],
         "contains_enemy":false,
         "first_room":true,
         "boss_room":false,
@@ -11,8 +11,8 @@
     {
         "name":"1-1",
         "connections":["0", "1-2", "1-3"],
-        "items":"",
-        "contains_enemy":true,
+        "items":["lesser healing potion", "greater healing potion", "lesser combat potion", "greater combat potion"],
+        "contains_enemy":false,
         "first_room":false,
         "boss_room":false,
         "unlock_connection":[]
@@ -20,8 +20,8 @@
     {
         "name":"1-2",
         "connections":["1-1", "1-4"],
-        "items":"",
-        "contains_enemy":false,
+        "items":[],
+        "contains_enemy":true,
         "first_room":false,
         "boss_room":false,
         "unlock_connection":[]
@@ -29,7 +29,7 @@
     {
         "name":"1-3",
         "connections":["1-1", "1-5"],
-        "items":"",
+        "items":[],
         "contains_enemy":false,
         "first_room":false,
         "boss_room":false,
@@ -38,7 +38,7 @@
     {
         "name":"1-4",
         "connections":["1-2", "1-6"],
-        "items":"",
+        "items":[],
         "contains_enemy":false,
         "first_room":false,
         "boss_room":false,
@@ -47,7 +47,7 @@
     {
         "name":"1-5",
         "connections":["1-3", "1-6"],
-        "items":"",
+        "items":[],
         "contains_enemy":false,
         "first_room":false,
         "boss_room":false,
@@ -56,7 +56,7 @@
     {
         "name":"1-6",
         "connections":["1-4", "1-5", "1-7"],
-        "items":"",
+        "items":[],
         "contains_enemy":false,
         "first_room":false,
         "boss_room":false,
@@ -65,7 +65,7 @@
     {
         "name":"1-7",
         "connections":["1-6"],
-        "items":"",
+        "items":[],
         "contains_enemy":false,
         "first_room":false,
         "boss_room":false,
@@ -74,7 +74,7 @@
     {
         "name":"2-1",
         "connections":["2-2"],
-        "items":"",
+        "items":[],
         "contains_enemy":false,
         "first_room":false,
         "boss_room":false,
@@ -83,7 +83,7 @@
     {
         "name":"2-2",
         "connections":["2-1", "2-3"],
-        "items":"",
+        "items":[],
         "contains_enemy":false,
         "first_room":false,
         "boss_room":false,
@@ -92,7 +92,7 @@
     {
         "name":"2-3",
         "connections":["2-2", "2-4", "2-5"],
-        "items":"",
+        "items":[],
         "contains_enemy":false,
         "first_room":false,
         "boss_room":false,
@@ -101,7 +101,7 @@
     {
         "name":"",
         "connections":[""],
-        "items":"",
+        "items":[],
         "contains_enemy":false,
         "first_room":false,
         "boss_room":false,
@@ -110,7 +110,7 @@
     {
         "name":"12",
         "connections":["9", "13"],
-        "items":"",
+        "items":[],
         "contains_enemy":false,
         "first_room":false,
         "boss_room":false,

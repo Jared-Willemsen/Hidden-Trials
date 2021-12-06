@@ -1,0 +1,37 @@
+[
+    {
+        "name":"lesser healing potion",
+        "usable":["battle", "world"],
+        "description":"Heals a small amount of health"
+    },
+    {
+        "name":"greater healing potion",
+        "usable":["battle", "world"],
+        "description":"Heals a large amount of health"
+    },
+    {
+        "name":"lesser combat potion",
+        "usable":["battle", "world"],
+        "description":"Increses combat points by 20"
+    },
+    {
+        "name":"greater combat potion",
+        "usable":["battle", "world"],
+        "description":"Increses combat points by 50"
+    },
+    {
+        "name":"flash stone",
+        "usable":["battle"],
+        "description":"Flashes enemies to escape a battle"
+    },
+    {
+        "name":"saber",
+        "usable":["world"],
+        "description":"A backsword with a curved blade, increases attack power"
+    },
+    {
+        "name":"ambrosia",
+        "usable":["world"],
+        "description":"" 
+    }
+]
