@@ -1,15 +1,16 @@
-from math import fabs
+from math import *
 from random import *
 
 class Player():
-    def __init__(self, name, attack_sort, max_health, attack_damage, defence, magic_defence, guarding = False, combat_power = 99, max_combat_power = 99):
+    def __init__(self, name, attack_sort, max_health, attack_power, defence, magic_defence, weapon = [],  guarding = False, combat_power = 99, max_combat_power = 99):
         self.name = name
         self.attack_sort = attack_sort
         self.max_health = max_health
         self.health = max_health
-        self.attack_damage = attack_damage
+        self.attack_power = attack_power
         self.defence = defence
         self.magic_defence = magic_defence
+        self.weapon = weapon
         self.guariding = guarding
         self.combat_power = combat_power
         self.max_combat_power = max_combat_power
@@ -25,7 +26,7 @@ class Player():
             self.combat_power = self.max_combat_power
 
     def calculate_damage(self, multiplier = 1):
-        standard_damage = self.attack_damage * multiplier         
+        standard_damage = self.attack_power * multiplier         
         true_damage = round(standard_damage * (randrange(8, 12, 1) / 10)) 
         self.combat_power += round(true_damage * 0.8)
         if self.combat_power > self.max_combat_power:
@@ -135,27 +136,22 @@ class Mover():
                 if(player := get_player_input(players)) != False:
                     break
                 print("input is invalid")
-            if item.name  == "lesser healing potion":
-                player.increase_health(15)
-
-            elif item.name  == "greater healing potion":
-                player.increase_health(25)
-
-            elif item.name  == "lesser combat potion":
-                player.increase_combat_power(40)
+            if item.name  == "lesser healing potion" or item.name  == "greater healing potion":
+                player.increase_health(item.potency)
                 
-            else:
-                player.increase_combat_power(80)
-            self.items.remove(item)
-        #self.remove_item(item)
-            print("test")
-    
-    # def remove_item(self, item):
-    #     for player_item in self.items:
-    #         if player_item.name == item:
-                
-
-        # elif item.name == "flash stone":
+            elif item.name  == "lesser combat potion" or item.name  == "greater combat potion":
+                player.increase_combat_power(item.potency)
+            
+        elif item.name == "training sword" or item.name == "saber":
+            players[0].attack_power = item.potecy
+            self.items.append(players[0].weapon)
+            players[0].weapon = item
+            
+        elif item.name == "wooden staff" or item.name == "ruby staff":
+            players[1].attack_power = item.potecy
+            self.items.append(players[1].weapon)
+            players[1].weapon = item
+        self.items.remove(item)
         
 def get_player_input(players):
     print("Who do you want to use this item on")

@@ -49,6 +49,6 @@ class World:
             for i in range(len(room.items)):
                 for possible_item in item_list:
                     if possible_item["name"] == room.items[i]:
-                        room.items[i] = Item(possible_item["name"], possible_item["usable"], possible_item["description"])
+                        room.items[i] = Item(possible_item["name"], possible_item["usable"], possible_item["description"], possible_item["item_potency"])
 
 

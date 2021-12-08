@@ -1,18 +1,18 @@
 from random import *
 
 class Enemy:
-    def __init__(self, name, max_health, attack_damage, defence, magic_defence, attack_sort, status = True):
+    def __init__(self, name, max_health, attack_power, defence, magic_defence, attack_sort, status = True):
         self.name = name
         self.max_health = max_health
         self.health = max_health
-        self.attack_damage = attack_damage
+        self.attack_power = attack_power
         self.defence = defence
         self.magic_defence = magic_defence
         self.attack_sort = attack_sort
         self.status = status
 
     def calculate_damage(self, multiplier = 1):
-        standard_damage = self.attack_damage * multiplier         
+        standard_damage = self.attack_power * multiplier         
         true_damage = round(standard_damage *  (randrange(8, 12, 1) / 10))
         return true_damage
 

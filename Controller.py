@@ -1,6 +1,7 @@
 from World import *
 from Player import *
 from Enemy import *
+from Item import *
 from Battle import start_battle
 
 class Controller:
@@ -15,8 +16,9 @@ class Controller:
         self.world.make_world()
         #place the mover in the first room
         self.mover.current_room = self.world.get_first_room()
-        playing = True
-        while playing:
+        self.players[0].weapon = Item("training sword", ["world"], "beginner sword made for training", 10)
+        self.players[1].weapon = Item("wooden staff", ["world"], "beginner staff made for training", 10)
+        while (playing := True):
             while True:
                 if (action_input := get_action_input()) in ("0", "1"):
                     break
