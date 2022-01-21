@@ -3,7 +3,7 @@ from Player import *
 from Controller import *
 
 def main():
-    game = Controller() 
+    game = Controller()
     game.play_game()
 
 if __name__ == "__main__":

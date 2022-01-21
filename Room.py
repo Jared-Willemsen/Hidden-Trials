@@ -1,15 +1,16 @@
 import json
+from sqlite3 import connect
 from Item import *
 
 class Room:
-    def __init__(self, name, connections, items, contains_enemy, first_room, boss_room, unlock_connection):
+    def __init__(self, name, connections, items, enemies, unlock_connection, first_room, boss_room):
         self.name = name
         self.connections = connections
         self.items = items
-        self.contains_enemy = contains_enemy
+        self.enemies = enemies
+        self.unlock_connection = unlock_connection
         self.first_room = first_room
         self.boss_room = boss_room
-        self.unlock_connection = unlock_connection
 
     def search_room(self):
         print(f"\nYou enter room {self.name} and look around you.\n")
@@ -28,6 +29,21 @@ class Room:
             for item in self.items:
                 print("You search around the room and find something. You decide to pick it up")
                 print(f"Item found: {item.name}\n")
+
+    def save_to_JSON(self):
+        items_in_JSON = []
+        for item in self.items:
+            items_in_JSON.append(item.name)
+
+        room_in_JSON = {"name":"", "connections":[], "items":[], "enemies":[], "unlock_connection":[], "first_room":False, "boss_room":False}
+        room_in_JSON["name"] = self.name
+        room_in_JSON["connections"] = self.connections
+        room_in_JSON["items"] = items_in_JSON
+        room_in_JSON["enemies"] = self.enemies
+        room_in_JSON["unlock_connection"] = self.unlock_connection
+        room_in_JSON["first_room"] = self.first_room
+        room_in_JSON["boss_room"] = self.boss_room
+        return room_in_JSON
 
     def add_connection(self, room):
         self.connections.append(room)

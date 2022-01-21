@@ -1,0 +1,16 @@
+[
+    {
+        "health":30,
+        "weapon":"Training sword",
+        "armour":"Leather gear",
+        "combat_power":0
+    },  
+    {
+        "health":30,
+        "weapon":"Wooden staff",
+        "armour":"Leather halfrobe",
+        "combat_power":0
+    } 
+    
+    
+]

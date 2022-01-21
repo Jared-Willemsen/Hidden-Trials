@@ -1,0 +1,186 @@
+[
+    {
+        "name":"0",
+        "connections":["1-1"],
+        "items":[],
+        "enemies":[],
+        "unlock_connection":[],
+        "first_room":true,
+        "boss_room":false
+    },
+    {
+        "name":"1-1",
+        "connections":["0", "1-2"],
+        "items":["Lesser healing potion"],
+        "enemies":["Blue Slime"],
+        "unlock_connection":[],
+        "first_room":false,
+        "boss_room":false
+    },
+    {
+        "name":"1-2",
+        "connections":["1-1", "1-3"],
+        "items":[],
+        "enemies":["Blue Slime", "Killer Bee", "Blue Slime"],
+        "unlock_connection":[],
+        "first_room":false,
+        "boss_room":false
+    },
+    {
+        "name":"1-3",
+        "connections":["1-2", "1-4"], 
+        "items":["Lesser combat potion"],
+        "enemies":[],
+        "unlock_connection":[],
+        "first_room":false,
+        "boss_room":false
+    },
+    {
+        "name":"1-4",
+        "connections":["1-3"],
+        "items":["Saber", "Ruby staff"],
+        "enemies":["Killer Bee", "Ghoul", "Killer Bee"],
+        "unlock_connection":["0", "2-1"],
+        "first_room":false,
+        "boss_room":false
+    },
+
+
+    {
+        "name":"2-1",
+        "connections":["2-2"],
+        "items":[],
+        "enemies":["Killer Bee", "Killer Bee", "Killer Bee", "Killer Bee", "Killer Bee"],
+        "unlock_connection":[],
+        "first_room":false,
+        "boss_room":false        
+    },
+    {
+        "name":"2-2",
+        "connections":["2-1", "2-3"],
+        "items":["Lesser healing potion", "Lesser combat potion"],
+        "enemies":[],
+        "unlock_connection":[],
+        "first_room":false,
+        "boss_room":false
+    },
+    {
+        "name":"2-3",
+        "connections":["2-2", "2-4", "2-5"],
+        "items":[],
+        "enemies":["Ghoul", "Dark Wizard", "Ghoul"],
+        "unlock_connection":[],
+        "first_room":false,
+        "boss_room":false
+    },
+    {
+        "name":"2-4",
+        "connections":["2-3", "2-4-1"],
+        "items":[],
+        "enemies":[],
+        "unlock_connection":[],
+        "first_room":false,
+        "boss_room":false  
+    },
+    {
+        "name":"2-4-1",
+        "connections":["2-4"],
+        "items":["Mage robe"],
+        "enemies":[],
+        "unlock_connection":[],
+        "first_room":false,
+        "boss_room":false
+    },
+    {
+        "name":"2-5",
+        "connections":["2-4", "2-6"],
+        "items":[],
+        "enemies":["Spear Goblin", "Spear Goblin", "Dark Wizard", "Dark Wizard"],
+        "unlock_connection":[],
+        "first_room":false,
+        "boss_room":false
+    },
+    {
+        "name":"2-6",
+        "connections":["2-4"],
+        "items":["Knights armour"],
+        "enemies":[],
+        "unlock_connection":["0", "3-1"],
+        "first_room":false,
+        "boss_room":false
+    },
+
+
+    {
+        "name":"3-1",
+        "connections":["3-2", "3-3"],
+        "items":[],
+        "enemies":[],
+        "unlock_connection":[],
+        "first_room":false,
+        "boss_room":false
+    },
+    {
+        "name":"3-2",
+        "connections":["3-1", "3-4"],
+        "items":["Greater healing potion"],
+        "enemies":[],
+        "unlock_connection":[],
+        "first_room":false,
+        "boss_room":false
+    },
+    {
+        "name":"3-3",
+        "connections":["3-1", "3-5"],
+        "items":["Greater combat potion"],
+        "enemies":["Dark Wizard", "Vampire", "Dark Wizard"],
+        "unlock_connection":[],
+        "first_room":false,
+        "boss_room":false
+    },
+    {
+        "name":"3-4",
+        "connections":["3-2", "3-6"],
+        "items":["Tachi"],
+        "enemies":[],
+        "unlock_connection":[],
+        "first_room":false,
+        "boss_room":false  
+    },
+    {
+        "name":"3-5",
+        "connections":["3-3", "3-6"],
+        "items":["Moon staff"],
+        "enemies":[],
+        "unlock_connection":[],
+        "first_room":false,
+        "boss_room":false
+    },
+    {
+        "name":"3-6",
+        "connections":["3-4", "3-5", "3-7"],
+        "items":[],
+        "enemies":[],
+        "unlock_connection":[],
+        "first_room":false,
+        "boss_room":false   
+    },
+    {
+        "name":"3-7",
+        "connections":["3-6"],
+        "items":["Dragonscale armour", "Aetherial robe"],
+        "enemies":[],
+        "unlock_connection":["0", "F"],
+        "first_room":false,
+        "boss_room":false
+    },
+    {
+        "name":"F",
+        "connections":["0"],
+        "items":[],
+        "enemies":["Warlock Guardian", "Firewing Wyvern", "Knight Guardian"],
+        "unlock_connection":[],
+        "first_room":false,
+        "boss_room":true
+    }
+]

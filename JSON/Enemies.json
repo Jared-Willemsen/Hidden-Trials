@@ -1,0 +1,93 @@
+[
+    {
+        "name":"Blue Slime",
+        "max_health":14,
+        "attack_damage":8,
+        "defence":0.6,
+        "magic_defence":1.5,
+        "attack_sort":"Physical"
+    },
+    {
+        "name":"Killer Bee",
+        "max_health":10,
+        "attack_damage":10,
+        "defence":1.0,
+        "magic_defence":1.0,
+        "attack_sort":"Physical"
+    },
+    {
+        "name":"Ghoul",
+        "max_health":15,
+        "attack_damage":8,
+        "defence":1.0,
+        "magic_defence":0.4,
+        "attack_sort":"Physical"
+    },
+
+    {
+        "name":"Dark Wolve",
+        "max_health":10,
+        "attack_damage":20,
+        "defence":0.8,
+        "magic_defence":0.8,
+        "attack_sort":"Physical"
+    },
+    {
+        "name":"Dark Wizard",
+        "max_health":20,
+        "attack_damage":12,
+        "defence":0.5,
+        "magic_defence":0.5,
+        "attack_sort":"Magical"
+    },
+    {
+        "name":"Spear Goblin",
+        "max_health":20,
+        "attack_damage":12,
+        "defence":0.5,
+        "magic_defence":0.75,
+        "attack_sort":"Physical"
+    },
+
+    
+    {
+        "name":"Mad Ogre",
+        "max_health":25,
+        "attack_damage":30,
+        "defence":0.6,
+        "magic_defence":0.3,
+        "attack_sort":"Physical"
+    },
+    {
+        "name":"Vampire",
+        "max_health":15,
+        "attack_damage":20,
+        "defence":0.4,
+        "magic_defence":0.7,
+        "attack_sort":"Magical"
+    },
+    {
+        "name":"Warlock Guardian",
+        "max_health":25,
+        "attack_damage":25,
+        "defence":1.0,
+        "magic_defence":0.0,
+        "attack_sort":"Magical"
+    },
+    {
+        "name":"Knight Guardian",
+        "max_health":25,
+        "attack_damage":25,
+        "defence":0.0,
+        "magic_defence":1.0,
+        "attack_sort":"Physical"
+    },
+    {
+        "name":"Firewing Wyvern", 
+        "max_health":50, 
+        "attack_damage":40, 
+        "defence":0.5, 
+        "magic_defence":0.5, 
+        "attack_sort":"Physical"
+    }
+]

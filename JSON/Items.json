@@ -1,0 +1,98 @@
+[
+    {
+        "name":"Lesser healing potion",
+        "usable":["battle", "world"],
+        "description":"Heals a small amount of health",
+        "potency":15
+    },
+    {
+        "name":"Greater healing potion",
+        "usable":["battle", "world"],
+        "description":"Heals a large amount of health",
+        "potency":25
+    },
+    {
+        "name":"Lesser combat potion",
+        "usable":["battle", "world"],
+        "description":"Increses combat points by 20",
+        "potency":40
+    },
+    {
+        "name":"Greater combat potion",
+        "usable":["battle", "world"],
+        "description":"Increses combat points by 50",
+        "potency":80
+    },
+    {
+        "name":"Training sword",
+        "usable":["world"],
+        "description":"Beginner sword made for training - strength : 5",
+        "potency":10
+    },
+    {
+        "name":"Saber",
+        "usable":["world"],
+        "description":"A backsword with a curved blade - strength : 10",
+        "potency":15
+    },
+    {
+        "name":"Tachi",
+        "usable":["world"],
+        "description":"a long curved blade used by samurai - strength : 15",
+        "potency":20
+    },
+    {
+        "name":"Wooden staff",
+        "usable":["world"],
+        "description":"Beginner staff made for training - strength : 5",
+        "potency":10
+    },
+    {        
+        "name":"Ruby staff",
+        "usable":["world"],
+        "description":"A staff with a ruby gem embedded - stregth - 10",
+        "potency":15 
+    },
+    {
+        "name":"Moon staff",
+        "usable":["world"],
+        "description":"A powerfull staff imbued with the power of the moon : strength : 15",
+        "potency":20
+    },
+    {
+        "name":"Leather gear",
+        "usable":["world"],
+        "description":"",
+        "potency":0.3
+    },
+    {
+        "name":"Knights armour",
+        "usable":["world"],
+        "description":"",
+        "potency":0.5
+    },
+    {
+        "name":"Dragonscale armour",
+        "usable":["world"],
+        "description":"",
+        "potency":0.65
+    },
+    {
+        "name":"Leather halfrobe",
+        "usable":["world"],
+        "description":"",
+        "potency":0.4
+    },
+    {
+        "name":"Mage robe",
+        "usable":["world"],
+        "description":"",
+        "potency":0.6
+    },
+    {
+        "name":"Aetherial robe",
+        "usable":["world"],
+        "description":"",
+        "potency":0.75
+    }
+]
