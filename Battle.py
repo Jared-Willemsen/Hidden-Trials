@@ -1,76 +1,15 @@
 import json
 from random import *
+import re
 from typing import Tuple
 from Player import *
 from Enemy import *
 
-def get_target(targets):
-    while True:
-        print("---------------------------------")
-        print("Pick a target:")
-        for target in targets:
-            print(f"{target.name}")
-        print("---------------------------------")                        
-        target_choice = input(f"input: ")
-        for target in targets:
-            if target_choice == target.name:
-                return target
-        print("invalid input")
-
-def print_battle_status(enemies, players):
-    name_line = ""
-    health_line = ""
-    combat_power_line = ""
-    if len(enemies) >= 2:
-        borderline = "=" * (len(enemies) * 27 - 1)
-    else:
-        borderline = "=" * (54 - 1)
-    print(borderline)
-    for enemy in enemies:
-        if enemy.status == True:
-            healthbar = round(enemy.health/enemy.max_health * 20)
-            name_line += enemy.name + " " * (27 - len(enemy.name))
-            health_line += str(enemy.health).zfill(2) + "/" + str(enemy.max_health) + " " + "|" * healthbar +"-" * (20 - healthbar) + " "
-    print(name_line)
-    print(health_line)
-    print("\n" * 2)
-
-    name_line = ""
-    health_line = ""
-    for player in players:
-        healthbar = round(player.health/player.max_health * 20)
-        health_line += str(player.health).zfill(2) + "/" + str(player.max_health) + " " + "|" * (healthbar) + "-" * (20 - healthbar) + " "
-        name_line += player.name + " " * (27 - len(player.name))
-        combat_power_bar = round(player.combat_power/player.max_combat_power * 20)
-        combat_power_line += str(player.combat_power).zfill(2) + "/" + str(player.max_combat_power) + " " + "|" * (combat_power_bar) + "-" * (20 - combat_power_bar) + " "
-    print(name_line)
-    print(health_line)
-    print(combat_power_line)
-    print(borderline)
-
-def get_enemies(room):
-    battle_enemies = []
-    i = 0
-    with open("JSON/Enemies.json", "r") as f:
-        enemy_list = json.load(f)
-    for room_enemy in room.enemies:
-        i += 1
-        for list_enemy in enemy_list:
-            if list_enemy["name"] == room_enemy:
-                if room_enemy ==  "Firewing Wyvern":
-                    battle_enemies.append(Boss(list_enemy["name"] + str(i), list_enemy["max_health"], list_enemy["attack_damage"], list_enemy["defence"], list_enemy["magic_defence"], list_enemy["attack_sort"]))    
-                else:
-                    battle_enemies.append(Enemy(list_enemy["name"] + str(i), list_enemy["max_health"], list_enemy["attack_damage"], list_enemy["defence"], list_enemy["magic_defence"], list_enemy["attack_sort"]))
-    return battle_enemies
-
 def start_battle(players, mover):
-    turn_conter = 0
-    enemies = get_enemies(mover.current_room) #load enemies
+    enemies = get_enemies(mover.current_room) #get enemies from room
     battle = True
-    #BEGIN BATTLE
-    while battle:
-        turn_conter += 1
-        guarding = False
+    while battle: #loop turn until battle is over
+        guarding = False 
         #PLAYER TURN
         for player in players:
             print_battle_status(enemies, players)
@@ -132,13 +71,6 @@ def start_battle(players, mover):
                 damage = enemy.calculate_damage()
                 target.receive_damage(damage, enemy.attack_sort, guarding)                    
 
-def get_action(player):
-    print(f"What will {player.name} do?")
-    print("(1)Attack")
-    print("(2)Craft") 
-    print("(3)Item")
-    action = input("input: ")
-    return action
 
 def boss_turn(boss, players):
     if boss.charging_attack == True:
@@ -160,18 +92,68 @@ def boss_turn(boss, players):
             damage = boss.calculate_damage(0.75)
             player.receive_damage(damage, boss.attack_sort)
     elif boss_action == "change_attack_sort":
-        if boss.attack_sort == "physical":
-            boss.attack_sort = "magical"
-        else:
-            boss.attack_sort = "physical"
-        boss_turn(boss, players)
+        boss.change_attack_sort()
+        boss_turn(boss, players) # boss gets another turn because it didn't attack or charge
     elif boss_action == "change_resistance":
         storage = boss.defence
         boss.defence = boss.magic_defence
         boss.magic_defence = storage
-        boss_turn(boss, players)
+        boss_turn(boss, players) # boss gets another turn because it didn't attack or charge
     elif boss_action == "charge_attack":
         boss.charging_attack = True
+
+
+
+def print_battle_status(enemies, players):
+    name_line = ""
+    health_line = ""
+    combat_power_line = ""
+    if len(enemies) >= 2:
+        borderline = "=" * (len(enemies) * 27 - 1)
+    else:
+        borderline = "=" * (54 - 1)
+    print(borderline)
+    for enemy in enemies:
+        if enemy.status == True:
+            healthbar = round(enemy.health/enemy.max_health * 20)
+            name_line += enemy.name + " " * (27 - len(enemy.name))
+            health_line += str(enemy.health).zfill(2) + "/" + str(enemy.max_health) + " " + "|" * healthbar +"-" * (20 - healthbar) + " "
+    print(name_line)
+    print(health_line)
+    print("\n" * 2)
+
+    name_line = ""
+    health_line = ""
+    for player in players:
+        healthbar = round(player.health/player.max_health * 20)
+        health_line += str(player.health).zfill(2) + "/" + str(player.max_health) + " " + "|" * (healthbar) + "-" * (20 - healthbar) + " "
+        name_line += player.name + " " * (27 - len(player.name))
+        combat_power_bar = round(player.combat_power/player.max_combat_power * 20)
+        combat_power_line += str(player.combat_power).zfill(2) + "/" + str(player.max_combat_power) + " " + "|" * (combat_power_bar) + "-" * (20 - combat_power_bar) + " "
+    print(name_line)
+    print(health_line)
+    print(combat_power_line)
+    print(borderline)
+
+def get_enemies(room):
+    battle_enemies = []
+    i = 0
+    with open("JSON/Enemies.json", "r") as f:
+        enemy_list = json.load(f)
+    for room_enemy in room.enemies:
+        i += 1
+        for list_enemy in enemy_list:
+            if list_enemy["name"] == room_enemy:
+                if room_enemy ==  "Firewing Wyvern":
+                    battle_enemies.append(Boss(list_enemy["name"] + str(i), list_enemy["max_health"], list_enemy["attack_damage"], list_enemy["defence"], list_enemy["magic_defence"], list_enemy["attack_sort"]))    
+                else:
+                    battle_enemies.append(Enemy(list_enemy["name"] + str(i), list_enemy["max_health"], list_enemy["attack_damage"], list_enemy["defence"], list_enemy["magic_defence"], list_enemy["attack_sort"]))
+    return battle_enemies
+
+def get_target(targets):
+    while (target := get_target_input(targets)) == False:
+        print("invalid input")
+    return target
     
 def remove_dead_enemies(enemies):
     new_enemy_list = []
@@ -179,3 +161,22 @@ def remove_dead_enemies(enemies):
         if enemy.status == True:
             new_enemy_list.append(enemy)
     return new_enemy_list
+
+def get_target_input(targets):
+    print("---------------------------------")
+    print("Pick a target:")
+    for target in targets:
+        print(f"{target.name}")
+    print("---------------------------------")                        
+    target_choice = input(f"input: ")
+    for target in targets:
+        if target_choice == target.name:
+            return target
+    return False
+def get_action(player):
+    print(f"What will {player.name} do?")
+    print("(1)Attack")
+    print("(2)Craft") 
+    print("(3)Item")
+    action = input("input: ")
+    return action

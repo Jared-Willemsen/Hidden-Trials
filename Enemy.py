@@ -1,5 +1,7 @@
 from random import *
 
+
+# enemy class is simmilar to the player class in retrospect I probably could have made the player class a child of the enemy class but I thought it would be better to keep them seperate 
 class Enemy:
     def __init__(self, name, max_health, attack_power, defence, magic_defence, attack_sort):
         self.name = name
@@ -29,7 +31,7 @@ class Enemy:
             print(f"{self.name} took {damage_received} damage and has {self.health} health left.")
         return damage_received
 
-class Boss(Enemy):
+class Boss(Enemy): # the boss has extra attacks 
     def __init__(self, name, max_health, attack_power, defence, magic_defence, attack_sort):
         super().__init__(name, max_health, attack_power, defence, magic_defence, attack_sort)
         self.charging_attack = False
@@ -40,6 +42,14 @@ class Boss(Enemy):
             self.attack_sort == "Magical"
         else:
             self.attack_sort == "Physical"
+    
+    def change_resistance(self):
+        if self.defence == 0.5 or self.defence == 0.6:
+            self.defence = 0.0
+            self.magic_defence = 0.6
+        else:
+            self.defence = 0.6
+            self.magic_defence = 0.0
         
     
 

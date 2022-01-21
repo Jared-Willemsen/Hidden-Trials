@@ -56,10 +56,7 @@ class World:
                     for i in range(len(self.rooms)):
                         if self.rooms[i].name == room.unlock_connection[connection]:
                             room.unlock_connection[connection] = i
-            
-        
-
-                    
+                        
     def save_world(self):
         world_in_JSON = []
         for room in self.rooms:

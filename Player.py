@@ -20,12 +20,12 @@ class Player():
         if self.health > self.max_health:
             self.health = self.max_health
 
-    def increase_combat_power(self, combat_points):
+    def increase_combat_power(self, combat_points): 
         self.combat_power += combat_points
         if self.combat_power > self.max_combat_power:
             self.combat_power = self.max_combat_power
 
-    def calculate_damage(self, multiplier = 1):
+    def calculate_damage(self, multiplier = 1): 
         standard_damage = self.attack_power * multiplier         
         true_damage = round(standard_damage * (randrange(8, 12, 1) / 10)) 
         self.combat_power += round(true_damage * 0.8)
@@ -34,27 +34,30 @@ class Player():
         print(true_damage)
         return true_damage
     
-    def receive_damage(self, true_damage, attack_sort, guarding):
+    def receive_damage(self, true_damage, attack_sort, guarding): 
+        # if the player was guarding before the enemy attacks it will reduce the damage by half
         if guarding == True:
             true_damage /= 2
-        if attack_sort == "physical":
+        if attack_sort == "physical": # reduces damage with defence
             damage_received = round(true_damage * self.defence)
         else:
             damage_received = round(true_damage * self.magic_defence)
         self.health -= damage_received
-        if self.health  <= 0:
+        if self.health  <= 0: # if player health reaches 0 player is dead the user loses and the program is exited  
             print(f"{self.name} took {self.health + damage_received} damage and died")
             print("|-------------------------------------------------------------------|")
             print("|                      GAME            OVER                         |")
             print("|-------------------------------------------------------------------|")
             exit()
         else:
-            self.combat_power += round(damage_received * 0.8)
+            #increases the combat power by taking damage
+            self.combat_power += round(damage_received * 0.8) 
             if self.combat_power > self.max_combat_power:
                 self.combat_power = self.max_combat_power
             print(f"{self.name} took {damage_received} damage and has {self.health} health left")
     
     def special_attack(self):
+        # gets an input for the special attack and reduces combat power accordingly
         while (craft := get_special_attack_input(self)) == False:
             print("invalid input")
         if craft == "1":
@@ -70,6 +73,7 @@ class Player():
             self.combat_power -= 99
             return craft
                 
+# get input for spocial attack
 def get_special_attack_input(player):
     print("Cp: " + str(player.combat_power) + "/" + str(player.max_combat_power))
     if player.name == "Joshua":
@@ -95,68 +99,56 @@ class Mover():
         self.current_room = current_room
         self.items = items
     
-    def pick_up_items(self, room):
+    def pick_up_items(self, room): # puts items from the room into this class 
         for item in room.items:
             self.items.append(item)
         return []
 
-    def check_for_usable_items(self, location):
+    def check_for_usable_items(self, location): # checks if user has any usable items
         for item in self.items:
             for setting in item.usable:
                 if setting == location:
                     return True
         return False
 
-    def print_items(self, location):
+    def print_items(self, location): # self explanetory
         print("Backpack: ")
         for item in self.items:
             item.print_item(location)
- 
-    def goto_room(self, room):
-        #change player room
-        self.current_room = room
 
-    def use_item(self, players, location):
-        while True:
-            self.print_items(location)
-            if(item := get_item_input(self, location)) != False:
-                break
+    def use_item(self, players, location): #uses an item
+        while (item := get_item_input(self, location)) == False:
             print("Invalid input")
         if item.name == "Lesser healing potion" or item.name  == "Greater healing potion" or item.name  == "Lesser combat potion" or item.name  == "Greater combat potion":
-            while True:
-                if(player := get_player_input(players)) != False:
-                    break
+            while (player := get_player_input(players)) == False:
                 print("input is invalid")
             if item.name  == "Lesser healing potion" or item.name  == "Greater healing potion":
                 player.increase_health(item.potency)
                 
             elif item.name  == "Lesser combat potion" or item.name  == "Greater combat potion":
                 player.increase_combat_power(item.potency)
-            
+
+        #checks wich item user chose and takes the required actions    
         elif item.name == "Training sword" or item.name == "Saber" or item.name == "Tachi":
             players[0].attack_power = item.potency
-            self.items.append(players[0].weapon)
             players[0].weapon = item
             
         elif item.name == "Wooden staff" or item.name == "Ruby staff" or item.name == "Moon staff":
             players[1].attack_power = item.potency
-            self.items.append(players[1].weapon)
             players[1].weapon = item
 
         elif item.name == "Leather gear" or item.name == "Knights armour" or item.name == "Dragonscale armour":
             players[0].defence = item.potency
             players[0].magic_defence = item.potency
-            self.items.append(players[0].armour)
             players[0].armour == item 
         
         elif item.name == "Leather halfrobe" or item.name == "Mage robe" or item.name == "Aetherial robe":
             players[1].defence = item.potency - 0.2
             players[1].magic_defence = item.potency
-            self.items.append(players[1].armour) 
             players[1].armour == item
-
         self.items.remove(item)
-        
+
+# the rest is just asking the user for an input
 def get_player_input(players):
     print("Who do you want to use this item on")
     for player in players:
@@ -169,6 +161,7 @@ def get_player_input(players):
     return False
 
 def get_item_input(self, location):
+    self.print_items(location)
     print("Which item do you want to use?")
     item_input = input("input: ")
 
