@@ -24,9 +24,9 @@ class Controller:
         # this is the only while true since after this the game will continue until you either die or finish the game in both cases the program will quit
         while True:
             #gets an input for the player action: player can move to another room (0), use an item (1) or save the game (2)   
-            while (action_input := get_action_input(self.mover.current_room, self.world.get_first_room())) not in ("0", "1", "2"):
+            while (action_input := get_action_input(self.mover.current_room, self.world.get_first_room())) not in ("Move", "Item", "Save"):
                 print("Invalid input")
-            if action_input == "0":
+            if action_input == "Move":
                 #gets an input to move to another room 
                 while (next_room := get_room_input(self.world, self.mover)) == False:     
                     print("Invalid input")      
@@ -46,13 +46,13 @@ class Controller:
                 #add new link if there is one
                 self.world.create_new_link(self.mover.current_room.unlock_connection)
                     
-            elif action_input == "1":
+            elif action_input == "Use item":
                 #checks if the player has any usable items
                 if self.mover.check_for_usable_items("world") == True:
                     self.mover.use_item(self.players, "world") #function for using an item
                 else:
                     print("You have no usable items")
-            elif action_input == "2":
+            elif action_input == "Save":
                 #saves the game
                 self.world.save_world()
                 self.save_players()
@@ -116,19 +116,22 @@ def translate_equipment(equipment): # changes item dictionaries to item objects
 
 # the rest if just for inputs
 def get_action_input(current_room, first_room):
-    print("Actions: ")
-    print("(0)Move")
-    print("(1)Use item")
-    print("(2)Save")
-    action_input = input("Intput: ")
+    print("Pick an action.")
+    sleep(1)
+    print("Move")
+    print("Use item")
+    print("Save")
+    action_input = input("Input: ")
+    print("\n")
     return action_input
 
 def get_room_input(world, mover):
     # ask user for room input
     print(f"\x1B[3mYou are currently in room {mover.current_room.name} Where do you wish to move.\x1B[0m")
+    sleep(1)
     for room in mover.current_room.connections: 
         print(f"Room {world.rooms[room].name}")
-    room_input = input("input: Room ")
+    room_input = input("Input: Room ")
     
     #validate user input 
     for connection in mover.current_room.connections:
@@ -137,10 +140,14 @@ def get_room_input(world, mover):
     return False
 
 def start_game():
-    print("Hidden Trails")
+    print("Welcome to Hidden Trails")
+    sleep(1)
+    print("Pick how you want to start your game.")
+    sleep(0.5)
     print("New Game")
     print("Load Game")
     world_input = input("Input: ")
+    print("\n")
     return world_input
 
                 

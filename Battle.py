@@ -1,7 +1,6 @@
 import json
 from random import *
-import re
-from typing import Tuple
+from time import *
 from Player import *
 from Enemy import *
 
@@ -14,19 +13,19 @@ def start_battle(players, mover):
         for player in players:
             print_battle_status(enemies, players)
             if player.combat_power < 10:
-                while (action := get_action(player)) not in ("1", "3"):
-                    if action == "2":
+                while (action := get_action(player)) not in ("Attack", "Item"):
+                    if action == "Craft":
                         print("Not enough combat power")
                     else:
                         print("Invalid input")    
             else:
-                while (action := get_action(player)) not in ("1", "2", "3"):
+                while (action := get_action(player)) not in ("Attack", "Craft", "Item"):
                     print("Invalid input") 
-            if action == "1": #basic attack
+            if action == "Attack": #basic attack
                 target = get_target(enemies)
                 damage = player.calculate_damage()
                 target.receive_damage(damage, player.attack_sort)
-            elif action == "2": #special attack/craft
+            elif action == "Craft": #special attack/craft
                 craft = player.special_attack()
                 if craft == "1":
                     for enemy in enemies:
@@ -46,7 +45,7 @@ def start_battle(players, mover):
                     damage = player.calculate_damage(3.0)
                     for enemy in enemies:
                         enemy.receive_damage(damage, player.attack_sort)
-            elif action == "3":
+            elif action == "Item":
                 if mover.check_for_usable_items("battle") == True:
                     mover.use_item(players, "battle")
                 else:
@@ -58,7 +57,6 @@ def start_battle(players, mover):
             if len(enemies) == 0:
                 battle = False
                 return
-        
         
         #ENEMY TURN
         print_battle_status(enemies, players)
@@ -134,6 +132,7 @@ def print_battle_status(enemies, players):
     print(health_line)
     print(combat_power_line)
     print(borderline)
+    sleep(0.1)
 
 def get_enemies(room):
     battle_enemies = []
@@ -163,20 +162,21 @@ def remove_dead_enemies(enemies):
     return new_enemy_list
 
 def get_target_input(targets):
-    print("---------------------------------")
     print("Pick a target:")
     for target in targets:
         print(f"{target.name}")
-    print("---------------------------------")                        
     target_choice = input(f"input: ")
+    print("\n")
     for target in targets:
         if target_choice == target.name:
             return target
     return False
+
 def get_action(player):
-    print(f"What will {player.name} do?")
-    print("(1)Attack")
-    print("(2)Craft") 
-    print("(3)Item")
+    print(f"Pick what {player.name} will do.")
+    print("Attack")
+    print("Craft") 
+    print("Item")
     action = input("input: ")
+    print("\n")
     return action
